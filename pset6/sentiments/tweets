@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+# TODO
+import sys
+import os
+import helpers
+from termcolor import colored
+from analyzer import Analyzer
+
+def main():
+    if len(sys.argv)!=2:
+        sys.exit("error usage: ./tweets @username")
+    #This extracts the username without the @ symbol.
+    user = sys.argv[1].lstrip("@")
+
+    #absolute path
+    positives = os.path.join(sys.path[0],"positive-words.txt")
+    negatives = os.path.join(sys.path[0],"negative-words.txt")
+
+    #Get the tweets.
+    tweets=helpers.get_user_timeline(user, 50)
+
+    #Check is successful.
+    if tweets == None:
+        sys.exit("error, Unable to access the users tweets.")
+
+    #Instentiate Analyser.
+    analyser = Analyzer(positives,negatives)
+
+    #Analyse Tweets
+    for tweet in tweets:
+        score = analyser.analyze(tweet)
+
+        if score>0:
+            print(colored(":) {} {}".format(score,tweet),"green"))
+        elif score<0:
+            print(colored(":( {} {}".format(score,tweet),"red"))
+        else:
+            print(colored(":| {} {}".format(score,tweet),"yellow"))
+
+if __name__=="__main__":
+    main()

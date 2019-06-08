@@ -1,0 +1,37 @@
+<!DOCUMENT html>
+
+<html>
+	<head>
+		<script>
+			
+			//Visibility of blink.
+			function blink(){
+				var div = document.getElementById('greetings');
+				if(div.style.visibility == 'hidden'){
+					div.style.visibility = 'visible';
+				}
+				else{
+					div.style.visibility = 'hidden';
+				}	
+			}
+			
+			//blink every 500 miliseconds
+			window.setInterval(blink, 500);
+			
+		</script>
+		<style>
+			#greetings
+            {
+              	font-size: 96pt;
+                margin: 240px;
+                text-align: center;
+            }
+		</style>
+		<title>Blink</title>
+	</head>
+	<body>
+		<div id="greetings">
+			Hello, world.
+		<div>
+	</body>
+</html>
